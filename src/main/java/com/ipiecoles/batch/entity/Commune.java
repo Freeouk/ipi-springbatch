@@ -1,4 +1,4 @@
-package com.ipiecoles.batch.model;
+package com.ipiecoles.batch.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +10,13 @@ public class Commune {
     @Id
     @Column(length = 5)
     private String codeInsee;
-
+    @Column
     private String nom;
-
     @Column(length = 5)
     private String codePostal;
-
+    @Column
     private Double latitude;
-
+    @Column
     private Double longitude;
 
     public Commune() {
