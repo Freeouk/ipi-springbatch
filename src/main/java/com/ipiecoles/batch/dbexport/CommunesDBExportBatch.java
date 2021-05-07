@@ -18,6 +18,7 @@ import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.batch.item.file.transform.FormatterLineAggregator;
 import org.springframework.batch.item.file.transform.LineAggregator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -118,17 +119,14 @@ public class CommunesDBExportBatch {
     }
 
 
-    public LineAggregator<Commune> newLineAgg (){
-            return new DelimitedLineAggregator<>() {
-                {
-                    setDelimiter(" - ");
-                    setFieldExtractor(new BeanWrapperFieldExtractor<>() {
-                        {
-                            setNames(new String[]{"codeInsee", "codePostal", "nom", "latitude", "longitude" });
-                        }
+    public LineAggregator<Commune> newLineAgg () {
 
-                    });
-                }
-            };
+        BeanWrapperFieldExtractor<Commune> wrapper = new BeanWrapperFieldExtractor<Commune>();
+        wrapper.setNames(new String[]{"codePostal", "codeInsee", "nom", "latitude", "longitude"});
+
+        FormatterLineAggregator<Commune> agg = new FormatterLineAggregator<>();
+        agg.setFormat("%5s - %5s - %s : %.5f %.5f");
+        agg.setFieldExtractor(wrapper);
+        return agg;
     }
 }

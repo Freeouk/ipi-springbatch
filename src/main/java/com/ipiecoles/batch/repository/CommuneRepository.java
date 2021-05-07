@@ -11,6 +11,7 @@ public interface CommuneRepository extends JpaRepository<Commune, String>, Pagin
     @Query("select count(distinct c.codePostal) from Commune c")
     long countDistinctCodePostal();
 
+    //we want to count the number of occurence in the database
     @Query("select count(c.codePostal) from Commune c")
     long countCommune();
 

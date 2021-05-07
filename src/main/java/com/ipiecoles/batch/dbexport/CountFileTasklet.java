@@ -32,7 +32,7 @@ public class CountFileTasklet implements Tasklet , StepExecutionListener{
             Reference.countCommune = countCommune;
 
             logger.info("il y a {} code(s) postal/postaux", countCp);
-            logger.info("il y a {} commune(s)", countCp);
+            logger.info("il y a {} commune(s)", countCommune);
 
             ExecutionContext stepContext = this.stepExecution.getExecutionContext();
             stepContext.put("countCp", countCp);
